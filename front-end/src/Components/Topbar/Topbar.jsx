@@ -1,10 +1,14 @@
 import './Topbar.css'
 import { Search, Person, Chat, Notifications } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
+import { AppBar, Box, IconButton, InputBase, Toolbar } from '@mui/material'
+import MenuIcon from '@mui/icons-material/Menu';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+
 function Topbar() {
 
     const PF = process.env.REACT_APP_PUBLIC_FOLDER
-
     return (
         <>
             <div className="topBarContainer">
@@ -44,6 +48,8 @@ function Topbar() {
             </div>
         </>
     )
+
+
 }
 
 export default Topbar

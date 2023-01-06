@@ -8,7 +8,7 @@ function Feed({user}) {
     const [posts, setPosts] = useState([])
     const fetchPost = async() => {
         console.log(user);
-        const res  = !user ? await axios.get('/post/timeline/63a196a1593c2c4e1af64dfc')
+        const res  = user ? await axios.get('/post/timeline/63a196a1593c2c4e1af64dfc')
                 :  await  axios.get('/post/profile/63a196a1593c2c4e1af64dfc')
         
         setPosts(res.data)
@@ -26,7 +26,6 @@ function Feed({user}) {
                         <Post key={data._id} posts = {data}/>
                     ))
                 }
-
             </div>
         </div>
     )
