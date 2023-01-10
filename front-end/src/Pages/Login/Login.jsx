@@ -1,25 +1,27 @@
 import { Password } from '@mui/icons-material'
-import { useContext,  useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './Login.css'
-import { loginCall } from '../../apiCalls'
-import { AuthContext } from '../../Context/AuthContext'
+import { useDispatch, useSelector } from 'react-redux'
 import { CircularProgress } from '@mui/material'
+import { LoginStart } from '../../Redux/action'
+import { loginCall } from '../../apiCalls'
+import { Navigate } from 'react-router-dom'
 
 
 function Login() {
 
     const email = useRef()
     const password = useRef()
-    const { user, isFetching, error, dispatch } = useContext(AuthContext)
+    const dispatch = useDispatch()
+    const { isFetching, user, error } = useSelector((prevState) => prevState) || { isFetching: false, user: null, error: null };
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        loginCall({ email: email.current.value, password: password.current.value }, dispatch)
+        dispatch(loginCall({ email: email.current.value, password: password.current.value }))
     }
-    console.log(user);
 
 
-    // other code
+
 
     return (
         <div className="login">
@@ -32,7 +34,7 @@ function Login() {
                     <form className="loginBox" onSubmit={handleSubmit}>
                         <input placeholder="Email" className="loginInput" required ref={email} />
                         <input placeholder="Password" type="password" className="loginInput" required ref={password} />
-                        <button className="loginButton">{isFetching ? <CircularProgress style={{color:"white",size:"25px"}} /> : "Log In"}</button>
+                        <button className="loginButton">{isFetching ? <CircularProgress style={{ color: "white" }} /> : "Login"}</button>
                         <span className="loginForgot">Forgot Password?</span>
                         <button className="loginRegisterButton">
                             Create a New Account

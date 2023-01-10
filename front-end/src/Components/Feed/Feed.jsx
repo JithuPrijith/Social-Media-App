@@ -3,19 +3,18 @@ import Post from '../Post/Post'
 import Share from '../ShareComponenet/Share'
 import './Feed.css'
 import axios from 'axios'
-function Feed({user}) {
-
+import { useSelector } from 'react-redux'
+function Feed({ username }) {
+    const { user } = useSelector(prevState => prevState)
     const [posts, setPosts] = useState([])
-    const fetchPost = async() => {
-        console.log(user);
-        const res  = user ? await axios.get('/post/timeline/63a196a1593c2c4e1af64dfc')
-                :  await  axios.get('/post/profile/63a196a1593c2c4e1af64dfc')
-        
+    const fetchPost = async () => {
+        const res = username ? await axios.get('/post/profile/' + username)
+            : await axios.get('/post/timeline/' + user._id)
         setPosts(res.data)
     }
     useEffect(() => {
-       fetchPost()
-    },[])
+        fetchPost()
+    }, [])
 
     return (
         <div className='feed'>
@@ -23,7 +22,7 @@ function Feed({user}) {
                 <Share />
                 {
                     posts.map(data => (
-                        <Post key={data._id} posts = {data}/>
+                        <Post key={data._id} posts={data} />
                     ))
                 }
             </div>

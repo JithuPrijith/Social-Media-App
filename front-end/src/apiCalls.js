@@ -1,12 +1,12 @@
-import axios from "axios"
+import axios from "axios";
+import { LoginFailure, LoginStart, LoginSuccess } from "./Redux/action";
 
-export const loginCall = async (userCredentials, dispatch) => {
-    console.log(dispatch);
-    dispatch({ type: 'LOGIN_START' });
+export const loginCall = (userCredential) => async (dispatch) => {
+    dispatch(LoginStart());
     try {
-        const res = await axios.post('auth/login', userCredentials);
-        dispatch({ type: 'LOGIN_SUCCESS', payload: res.data })
-    } catch (error) {
-        dispatch({ type: 'LOGIN_FAILURE', payload: error })
+        const res = await axios.post("/auth/login", userCredential);
+        dispatch(LoginSuccess(res.data));
+    } catch (err) {
+        dispatch(LoginFailure(err));
     }
-}
+};

@@ -1,19 +1,21 @@
 import './Topbar.css'
 import { Search, Person, Chat, Notifications } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
-import { AppBar, Box, IconButton, InputBase, Toolbar } from '@mui/material'
-import MenuIcon from '@mui/icons-material/Menu';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 function Topbar() {
 
     const PF = process.env.REACT_APP_PUBLIC_FOLDER
+
+    const {user} = useSelector(prevState => prevState)
+    
+
     return (
         <>
             <div className="topBarContainer">
                 <div className="topBarLeft">
-                    <Link to="/" style={{textDecoration:"none"}}>
+                    <Link to="/" style={{ textDecoration: "none" }}>
                         <span className="logo">Aley - Social</span>
                     </Link>
 
@@ -43,7 +45,9 @@ function Topbar() {
                             <span className="topBarIconBadge">1</span>
                         </div>
                     </div>
-                    <img src={`${PF}/profile1.jpeg`} alt="" className="topBarImage" />
+                    <Link to={`/profile/${user.username}`}>
+                        <img src={`${PF}/profile1.jpeg`} alt="" className="topBarImage" />
+                    </Link>
                 </div>
             </div>
         </>
