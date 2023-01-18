@@ -13,14 +13,12 @@ function Login() {
     const email = useRef()
     const password = useRef()
     const dispatch = useDispatch()
-    const { isFetching, user, error } = useSelector((prevState) => prevState) || { isFetching: false, user: null, error: null };
+    const { isFetching, user, error } = useSelector((prevState) => prevState)|| { isFetching: false, user: null, error: null };
 
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(loginCall({ email: email.current.value, password: password.current.value }))
     }
-
-
 
 
     return (

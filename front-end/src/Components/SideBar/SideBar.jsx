@@ -58,12 +58,7 @@ function SideBar() {
                     Show more
                 </button>
                 <hr className='sideBarHr' />
-                {
-                    Users.map((data) => (
-                        <Closefriend key={data.id} user= {data}/>
-                    ))
-                }
-                
+                        <Closefriend />
             </div>
         </div>
     )

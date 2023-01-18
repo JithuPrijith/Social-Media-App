@@ -10,14 +10,17 @@ import { useParams } from 'react-router-dom'
 function Profile() {
     const [user, setUser] = useState({})
     const username = useParams().username
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     useEffect(() => {
         console.log("here")
         const fetchUser = async () => {
             const res = await axios.get(`/user/?username=${username}`)
+            console.log("res", res);
             setUser(res.data)
         }
         fetchUser()
     }, [])
+    
     return (
         <>
             <Topbar />
@@ -26,8 +29,8 @@ function Profile() {
                 <div className="profileRight">
                     <div className="profileRightTop">
                         <div className="profileCover">
-                            <img src={user.coverPicture || "/assets/profile1.jpeg"} alt="" className="profileCoverImage" />
-                            <img src={user.profilePicture || "/assets/profile1.jpeg"} alt="" className="profileUserImage" />
+                            <img src={user.coverPicture ? PF.user.coverPicture : "/assets/profile1.jpeg"} alt="" className="profileCoverImage" />
+                            <img src={user.profilePicture ? PF.user.Picture : "/assets/profile1.jpeg"} alt="" className="profileUserImage" />
                         </div>
                         <div className="profileInfo">
                             <h4 className="profileInfoName">Prijith</h4>

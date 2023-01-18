@@ -48,6 +48,7 @@ module.exports = {
     //like / dislike a post
 
     likePost: async (req, res) => {
+        console.log(req.params.id,req.body.userId);
         try {
             const post = await Post.findById(req.params.id);
             if (!post.likes.includes(req.body.userId)) {
